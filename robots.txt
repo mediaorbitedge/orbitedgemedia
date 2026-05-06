@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Allow important assets (for rendering)
+
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Block duplicate URLs (important)
+
+Disallow: /*?*
+
+# Sitemap
+
+Sitemap: https://www.orbitedgemedia.com/sitemap.xml
