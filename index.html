@@ -248,7 +248,7 @@ body.loading{overflow:hidden}
 @keyframes fadeInLoader{from{opacity:0}to{opacity:1}}
 
 /* ══════════════════════════════════════
-   BACKGROUND — FULL REDESIGN
+   BACKGROUND — CLEAN GRADIENT
 ══════════════════════════════════════ */
 body{
   background:
@@ -279,6 +279,64 @@ body::before{
   pointer-events:none;z-index:99;opacity:.4;
 }
 
+
+/* ── Home Blog Preview Section ── */
+.home-blog-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  margin-top:2rem;
+}
+.home-blog-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,border-color .3s;
+  cursor:pointer;
+}
+.home-blog-card:hover{
+  transform:translateY(-6px);box-shadow:0 20px 50px rgba(124,92,252,.18);
+  border-color:rgba(124,92,252,.35);
+}
+.home-blog-img{
+  height:180px;background-size:cover;background-position:center;
+  background-color:#1a1a2e;
+}
+.home-blog-body{padding:1.25rem 1.4rem 1.5rem;}
+.home-blog-tag{
+  display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent);background:rgba(124,92,252,.12);
+  border:1px solid rgba(124,92,252,.25);border-radius:20px;padding:3px 10px;margin-bottom:.75rem;
+}
+.home-blog-title{
+  font-size:1rem;font-weight:700;color:#fff;line-height:1.4;
+  margin-bottom:.6rem;
+}
+.home-blog-excerpt{
+  font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:1rem;
+}
+.home-blog-read{
+  background:none;border:none;color:var(--accent);font-size:.88rem;font-weight:600;
+  cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;
+  transition:gap .2s ease,opacity .2s;
+}
+.home-blog-read:hover{gap:8px;opacity:.85;}
+.btn-blog-all{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 36px;border-radius:50px;
+  border:1.5px solid rgba(124,92,252,.5);
+  color:#a78bfa;background:rgba(124,92,252,.08);
+  font-size:.95rem;font-weight:700;cursor:pointer;
+  transition:all .3s ease;letter-spacing:.03em;
+}
+.btn-blog-all:hover{
+  background:rgba(124,92,252,.18);border-color:#7c5cfc;
+  transform:translateY(-3px);box-shadow:0 10px 32px rgba(124,92,252,.3);color:#fff;
+}
+@media(max-width:900px){
+  .home-blog-grid{grid-template-columns:1fr 1fr;}
+  .home-blog-card:nth-child(3){display:none;}
+}
+@media(max-width:600px){
+  .home-blog-grid{grid-template-columns:1fr;}
+  .home-blog-card:nth-child(3){display:block;}
+}
 /* ───── SCROLLBAR ───── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -293,42 +351,267 @@ body::before{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* ───── NAV ───── */
+/* ───── NAV — DEEP REDESIGN ───── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:10001;
-  background:rgba(6,6,10,0.85);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 5vw;
+  padding:0 4vw;
   display:flex;align-items:center;justify-content:space-between;
-  height:68px;
+  height:72px;
+  /* Deep glass */
+  background:linear-gradient(
+    135deg,
+    rgba(8,6,20,0.92) 0%,
+    rgba(12,8,28,0.88) 50%,
+    rgba(8,6,20,0.92) 100%
+  );
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  /* Layered borders */
+  border-bottom:1px solid rgba(124,92,252,.22);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.04),
+    0 4px 32px rgba(0,0,0,.6),
+    0 0 80px rgba(124,92,252,.06),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  transition:background .4s, box-shadow .4s;
 }
+/* Glowing top edge on nav */
+nav::before{
+  content:'';
+  position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(124,92,252,.6) 25%,
+    rgba(0,217,192,.5) 50%,
+    rgba(124,92,252,.6) 75%,
+    transparent 100%
+  );
+  animation:navEdgeShimmer 4s ease-in-out infinite;
+}
+@keyframes navEdgeShimmer{
+  0%,100%{opacity:.5;background-position:0%}
+  50%{opacity:1}
+}
+/* Subtle bottom reflection */
+nav::after{
+  content:'';
+  position:absolute;bottom:-1px;left:20%;right:20%;height:1px;
+  background:radial-gradient(ellipse,rgba(124,92,252,.15) 0%,transparent 70%);
+}
+
 .logo{
   font-family:var(--font-head);
-  font-size:1.25rem;font-weight:800;
-  background:linear-gradient(135deg,#fff 30%,var(--accent));
+  font-size:1.2rem;font-weight:800;
+  background:linear-gradient(135deg,#fff 0%,rgba(200,180,255,1) 50%,var(--accent2) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   letter-spacing:-.5px;
+  position:relative;
+  text-shadow:none;
+  filter:drop-shadow(0 0 12px rgba(124,92,252,.4));
 }
-.logo span{color:var(--accent);-webkit-text-fill-color:var(--accent)}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.logo span{
+  -webkit-text-fill-color:var(--accent2);
+  color:var(--accent2);
+  filter:drop-shadow(0 0 8px rgba(0,217,192,.5));
+}
+
+.nav-links{display:flex;gap:.2rem;list-style:none;align-items:center}
+.nav-links li{position:relative}
 .nav-links a{
-  color:var(--muted);font-size:.875rem;text-decoration:none;
-  font-weight:500;letter-spacing:.02em;transition:color .2s;
+  color:rgba(200,200,220,.7);
+  font-size:.8rem;text-decoration:none;
+  font-weight:500;letter-spacing:.03em;
+  padding:.45rem .8rem;
+  border-radius:8px;
+  transition:color .25s, background .25s;
+  position:relative;
+  display:block;
 }
-.nav-links a:hover{color:var(--text)}
+.nav-links a:hover{
+  color:#fff;
+  background:rgba(124,92,252,.1);
+}
+/* Active underline dot */
+.nav-links a::after{
+  content:'';
+  position:absolute;bottom:4px;left:50%;
+  transform:translateX(-50%) scaleX(0);
+  width:16px;height:1.5px;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:transform .25s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 0 6px var(--accent2);
+}
+.nav-links a:hover::after{transform:translateX(-50%) scaleX(1)}
+
 .nav-cta{
-  background:var(--accent);color:#fff!important;
-  padding:.45rem 1.1rem;border-radius:6px;
-  font-size:.8rem!important;font-weight:600!important;
-  transition:box-shadow .2s,transform .2s!important;
+  background:linear-gradient(135deg,var(--accent) 0%,#5b38f0 100%) !important;
+  color:#fff !important;
+  padding:.48rem 1.2rem !important;
+  border-radius:8px !important;
+  font-size:.78rem !important;
+  font-weight:700 !important;
+  letter-spacing:.03em !important;
+  transition:box-shadow .3s, transform .25s !important;
+  box-shadow:0 2px 16px rgba(124,92,252,.35),inset 0 1px 0 rgba(255,255,255,.15) !important;
+  position:relative;overflow:hidden;
 }
-.nav-cta:hover{box-shadow:var(--glow);transform:translateY(-1px)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.nav-cta::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 60%);
+  border-radius:8px;
+  pointer-events:none;
+}
+.nav-cta::after{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:8px;
+  opacity:0;
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+  transition:opacity .3s;
+  pointer-events:none;
+}
+.nav-cta:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 8px 28px rgba(124,92,252,.55),0 0 0 1px rgba(124,92,252,.3) !important;
+}
+.nav-cta:hover::after{opacity:1}
+
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:rgba(124,92,252,.12);
+  border:1px solid rgba(124,92,252,.25);
+  border-radius:8px;
+  padding:8px 10px;
+  transition:background .2s, border-color .2s;
+}
+.hamburger:hover{
+  background:rgba(124,92,252,.22);
+  border-color:rgba(124,92,252,.5);
+}
+.hamburger span{
+  display:block;width:20px;height:1.5px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:2px;transition:.3s;
+  box-shadow:0 0 4px rgba(124,92,252,.4);
+}
+
+/* ── Scroll-shrink nav ── */
+nav.scrolled{
+  height:60px;
+  background:rgba(4,3,14,0.97);
+  box-shadow:0 4px 40px rgba(0,0,0,.8),0 0 60px rgba(124,92,252,.05);
+}
+
+/* ───── MOBILE DRAWER — REDESIGN ───── */
+#mobile-drawer{
+  display:none;
+  position:fixed;
+  top:0;right:0;
+  width:82vw;
+  max-width:320px;
+  height:100vh;
+  background:linear-gradient(160deg,rgba(8,6,22,.98) 0%,rgba(4,3,14,.99) 100%);
+  border-left:1px solid rgba(124,92,252,.2);
+  box-shadow:-20px 0 60px rgba(0,0,0,.9),inset 1px 0 0 rgba(255,255,255,.04);
+  z-index:10002;
+  flex-direction:column;
+  padding:0 0 2rem;
+  transform:translateX(100%);
+  transition:transform 0.4s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;
+}
+#mobile-drawer::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(124,92,252,.5),rgba(0,217,192,.4),transparent);
+}
+#mobile-drawer.open{
+  display:flex;
+  transform:translateX(0);
+}
+/* Drawer header */
+#mobile-drawer::after{
+  content:'ORBIT EDGE MEDIA';
+  position:absolute;top:22px;left:24px;
+  font-family:var(--font-head);
+  font-size:.7rem;font-weight:800;letter-spacing:.18em;
+  color:rgba(124,92,252,.5);
+  pointer-events:none;
+}
+#mobile-drawer a{
+  display:flex;align-items:center;
+  padding:.95rem 1.6rem;
+  font-size:1rem;
+  font-weight:500;
+  color:rgba(210,210,230,.8);
+  text-decoration:none;
+  border-bottom:1px solid rgba(124,92,252,.08);
+  transition:background .2s, color .2s, padding-left .2s;
+  position:relative;
+  margin-top:0;
+}
+#mobile-drawer a:first-of-type{margin-top:72px}
+#mobile-drawer a::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:0 2px 2px 0;
+  transform:scaleY(0);
+  transition:transform .25s cubic-bezier(.22,1,.36,1);
+}
+#mobile-drawer a:hover,
+#mobile-drawer a:active{
+  background:rgba(124,92,252,.08);
+  color:#fff;
+  padding-left:2.2rem;
+}
+#mobile-drawer a:hover::before{transform:scaleY(1)}
+#mobile-drawer .drawer-cta{
+  margin:1.5rem 1.6rem 0;
+  background:linear-gradient(135deg,var(--accent),#5b38f0);
+  border-radius:12px;
+  text-align:center;
+  justify-content:center;
+  color:#fff !important;
+  font-weight:700 !important;
+  padding:1rem !important;
+  border:none;
+  box-shadow:0 4px 24px rgba(124,92,252,.4);
+  font-size:1rem !important;
+  letter-spacing:.03em;
+}
+#mobile-drawer .drawer-cta:hover{
+  padding-left:2rem !important;
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+}
+#mobile-drawer .drawer-cta::before{display:none}
+#mobile-drawer-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(4px);
+  z-index:10001;
+}
+#mobile-drawer-overlay.open{display:block}
+#drawer-close{
+  position:absolute;
+  top:16px;right:16px;
+  background:rgba(124,92,252,.12);
+  border:1px solid rgba(124,92,252,.25);
+  border-radius:8px;
+  color:rgba(200,200,220,.8);
+  font-size:1.1rem;
+  padding:6px 10px;
+  line-height:1;
+  transition:background .2s, color .2s;
+  z-index:2;
+}
+#drawer-close:hover{background:rgba(124,92,252,.25);color:#fff}
 
 /* ───── PAGE SYSTEM ───── */
-.page{display:none;min-height:100vh;padding-top:68px}
+.page{display:none;min-height:unset;padding-top:68px;padding-bottom:3rem;position:relative;z-index:5}
 .page.active{display:block}
 
 /* ══════════════════════════════════════
@@ -623,6 +906,18 @@ h1 .grad{
   box-shadow:0 4px 24px rgba(124,92,252,.4);
   position:relative;overflow:hidden;
   animation:glowPulse 3s ease-in-out 2s infinite;
+}
+.btn-blog{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:13px 26px;border-radius:50px;border:1.5px solid rgba(0,217,192,.45);
+  color:#00d9c0;background:rgba(0,217,192,.07);font-size:.92rem;font-weight:600;
+  cursor:pointer;transition:all .3s ease;letter-spacing:.03em;
+  backdrop-filter:blur(8px);
+}
+.btn-blog:hover{
+  background:rgba(0,217,192,.15);border-color:#00d9c0;
+  transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,217,192,.25);
+  color:#fff;
 }
 .btn-primary::after{
   content:'';position:absolute;inset:0;
@@ -1491,9 +1786,10 @@ footer{
 .footer-col a:hover{color:var(--accent)}
 .social-links{display:flex;gap:.75rem;margin-top:1.25rem}
 .social-link{
-  width:36px;height:36px;border-radius:8px;
+  width:40px;height:40px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  text-decoration:none;transition:all .2s;flex-shrink:0;
+  text-decoration:none;transition:all .25s;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
 }
 .social-link:hover{transform:translateY(-3px);filter:brightness(1.15);box-shadow:0 6px 20px rgba(0,0,0,.35)}
 .footer-bottom{
@@ -1723,69 +2019,6 @@ footer{
 }
 
 /* ───── MOBILE DRAWER ───── */
-#mobile-drawer{
-  display:none;
-  position:fixed;
-  top:0;right:0;
-  width:80vw;
-  max-width:320px;
-  height:100vh;
-  background:#08080f;
-  border-left:1px solid rgba(124,92,252,.25);
-  box-shadow:-12px 0 48px rgba(0,0,0,.8);
-  z-index:10002;
-  flex-direction:column;
-  padding:80px 0 2rem;
-  transform:translateX(100%);
-  transition:transform 0.38s cubic-bezier(.4,0,.2,1);
-  overflow-y:auto;
-}
-#mobile-drawer.open{
-  display:flex;
-  transform:translateX(0);
-}
-#mobile-drawer a{
-  display:block;
-  padding:1rem 2rem;
-  font-size:1.1rem;
-  font-weight:500;
-  color:#e8e8f0;
-  text-decoration:none;
-  border-bottom:1px solid rgba(124,92,252,.12);
-  transition:background .2s, color .2s;
-}
-#mobile-drawer a:active{
-  background:rgba(124,92,252,.12);
-  color:#7c5cfc;
-}
-#mobile-drawer .drawer-cta{
-  margin:1.5rem 2rem 0;
-  background:#7c5cfc;
-  border-radius:10px;
-  text-align:center;
-  color:#fff !important;
-  font-weight:700;
-  padding:1rem;
-  border:none;
-}
-#mobile-drawer-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:10001;
-}
-#mobile-drawer-overlay.open{display:block}
-/* Close button inside drawer */
-#drawer-close{
-  position:absolute;
-  top:18px;right:18px;
-  background:none;border:none;
-  color:#e8e8f0;font-size:1.6rem;
-  cursor:pointer;line-height:1;
-  padding:4px 8px;
-}
-
 @media(max-width:768px){
   .nav-links{display:none !important}
   .hamburger{display:flex}
@@ -1833,13 +2066,41 @@ footer{
    HERO IMAGE SECTION
 ═══════════════════════════ */
 .hero-visual{
-  position:relative;margin-top:3rem;width:100%;max-width:860px;
+  position:relative;margin-top:3rem;width:100%;max-width:900px;
   animation:fadeInUp .8s cubic-bezier(.22,1,.36,1) 1s both;
+  perspective:1200px;
 }
 .hero-img-wrap{
   position:relative;border-radius:20px;overflow:hidden;
-  border:1px solid rgba(124,92,252,.25);
-  box-shadow:0 24px 80px rgba(124,92,252,.2),0 4px 20px rgba(0,0,0,.4);
+  border:1px solid rgba(124,92,252,.35);
+  box-shadow:
+    0 30px 100px rgba(124,92,252,.25),
+    0 8px 32px rgba(0,0,0,.6),
+    0 0 0 1px rgba(255,255,255,.04),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transform:rotateX(3deg) rotateY(-1deg);
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.hero-img-wrap:hover{
+  transform:rotateX(0deg) rotateY(0deg) translateY(-6px);
+  box-shadow:
+    0 50px 120px rgba(124,92,252,.3),
+    0 12px 40px rgba(0,0,0,.7),
+    0 0 60px rgba(0,217,192,.1);
+}
+/* Glowing top edge */
+.hero-img-wrap::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(124,92,252,.8),rgba(0,217,192,.6),transparent);
+  z-index:3;filter:blur(1px);
+}
+/* Floating glow underneath */
+.hero-img-wrap::after{
+  content:'';position:absolute;
+  bottom:-30px;left:10%;right:10%;height:40px;
+  background:radial-gradient(ellipse,rgba(124,92,252,.3) 0%,transparent 70%);
+  filter:blur(15px);z-index:-1;
+  pointer-events:none;
 }
 .hero-img-wrap img{
   width:100%;display:block;
@@ -1856,6 +2117,7 @@ footer{
   content:'';position:absolute;inset:0;
   background-image:linear-gradient(rgba(124,92,252,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,.08) 1px,transparent 1px);
   background-size:40px 40px;
+  animation:gridDrift 20s linear infinite;
 }
 .hero-img-label{
   font-family:var(--font-head);font-size:1.1rem;font-weight:700;
@@ -1867,14 +2129,15 @@ footer{
 }
 .hero-img-badge{
   position:absolute;bottom:1.2rem;left:1.5rem;
-  background:rgba(6,6,10,.85);backdrop-filter:blur(12px);
-  border:1px solid rgba(124,92,252,.3);
+  background:rgba(6,6,10,.9);backdrop-filter:blur(16px);
+  border:1px solid rgba(124,92,252,.4);
   border-radius:10px;padding:.6rem 1rem;
   display:flex;align-items:center;gap:.6rem;z-index:2;
+  box-shadow:0 4px 24px rgba(0,0,0,.4),0 0 16px rgba(124,92,252,.1);
 }
 .hero-img-badge-dot{
   width:8px;height:8px;border-radius:50%;
-  background:var(--accent2);box-shadow:0 0 8px var(--accent2);
+  background:var(--accent2);box-shadow:0 0 12px var(--accent2);
   animation:pulse 2s infinite;flex-shrink:0;
 }
 .hero-img-badge-text{font-size:.75rem;font-weight:600;color:var(--text)}
@@ -1894,7 +2157,7 @@ footer{
   .stat{min-width:50%;padding:1rem}
   .stat:nth-child(odd)::after{display:none}
   .hero-ctas{flex-direction:column;align-items:stretch}
-  .hero-ctas .btn-primary,.hero-ctas .btn-ghost{width:100%;text-align:center;justify-content:center}
+  .hero-ctas .btn-primary,.hero-ctas .btn-ghost,.hero-ctas .btn-blog{width:100%;text-align:center;justify-content:center}
   .hero-tech-strip{gap:.5rem}
   .hero-tech-pill{font-size:.58rem;padding:.22rem .65rem}
   .services-grid{grid-template-columns:1fr}
@@ -1935,9 +2198,119 @@ footer{
   z-index:9999;display:none;animation:slideUp .3s ease;box-shadow:var(--glow);
 }
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════
+   CUSTOM CURSOR SYSTEM
+══════════════════════════════════════ */
+*{ cursor: none !important; }
+
+#cursor-dot{
+  position:fixed;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff 0%,var(--accent2) 60%);
+  box-shadow:0 0 10px var(--accent2),0 0 20px rgba(0,217,192,.4);
+  pointer-events:none;
+  z-index:999999;
+  transform:translate(-50%,-50%);
+  transition:width .15s,height .15s,background .2s,box-shadow .2s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;
+  width:36px;height:36px;
+  border-radius:50%;
+  border:1.5px solid rgba(124,92,252,.7);
+  pointer-events:none;
+  z-index:999998;
+  transform:translate(-50%,-50%);
+  transition:width .35s cubic-bezier(.22,1,.36,1),
+             height .35s cubic-bezier(.22,1,.36,1),
+             border-color .3s,
+             opacity .3s;
+  box-shadow:0 0 16px rgba(124,92,252,.2);
+}
+#cursor-trail-wrap{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:999997;
+  overflow:hidden;
+}
+
+/* ── Cursor states ── */
+body.cursor-hover #cursor-dot{
+  width:6px;height:6px;
+  background:radial-gradient(circle,#fff 0%,var(--accent) 60%);
+  box-shadow:0 0 16px var(--accent),0 0 32px rgba(124,92,252,.5);
+}
+body.cursor-hover #cursor-ring{
+  width:56px;height:56px;
+  border-color:rgba(124,92,252,.9);
+  box-shadow:0 0 24px rgba(124,92,252,.3);
+}
+body.cursor-click #cursor-dot{
+  width:14px;height:14px;
+  background:radial-gradient(circle,#fff 0%,var(--accent2) 40%);
+  box-shadow:0 0 24px var(--accent2),0 0 48px rgba(0,217,192,.6);
+}
+body.cursor-click #cursor-ring{
+  width:24px;height:24px;
+  border-color:rgba(0,217,192,1);
+  opacity:.5;
+}
+body.cursor-text #cursor-dot{
+  width:3px;height:28px;
+  border-radius:2px;
+  background:var(--accent2);
+  box-shadow:0 0 10px var(--accent2);
+  animation:cursorBlink 1s ease-in-out infinite;
+}
+body.cursor-text #cursor-ring{
+  opacity:0;
+}
+@keyframes cursorBlink{
+  0%,100%{opacity:1}50%{opacity:.3}
+}
+
+/* ── Star burst on click ── */
+.cursor-burst{
+  position:fixed;
+  pointer-events:none;
+  z-index:999996;
+  transform:translate(-50%,-50%);
+}
+.cursor-burst span{
+  position:absolute;
+  width:3px;height:3px;
+  border-radius:50%;
+  background:var(--accent2);
+  box-shadow:0 0 6px var(--accent2);
+  animation:burstOut .55s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes burstOut{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}
+}
+
+/* ── Comet tail ── */
+.cursor-comet{
+  position:fixed;
+  width:5px;height:5px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:999995;
+  transform:translate(-50%,-50%);
+  background:var(--accent2);
+  transition:left .05s linear,top .05s linear;
+}
 </style>
 </head>
 <body class="loading">
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<canvas id="cursor-trail-wrap" style="position:fixed;inset:0;pointer-events:none;z-index:999994;width:100%;height:100%;"></canvas>
+
 
 <!-- ══════════════════════════════════════
      CINEMATIC INTRO LOADER
@@ -2020,6 +2393,7 @@ footer{
     <li><a href="#" onclick="showPage('cases')">Case Studies</a></li>
     <li><a href="#" onclick="showPage('testimonials')">Testimonials</a></li>
     <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
     <li><a href="#" onclick="showPage('book')" class="nav-cta">Book a Call</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -2037,6 +2411,7 @@ footer{
   <a href="#" onclick="closeDrawer();showPage('cases')">Case Studies</a>
   <a href="#" onclick="closeDrawer();showPage('testimonials')">Testimonials</a>
   <a href="#" onclick="closeDrawer();showPage('pricing')">Pricing</a>
+  <a href="#" onclick="closeDrawer();showPage('blog')">📝 Blog</a>
   <a href="#" class="drawer-cta" onclick="closeDrawer();showPage('book')">📞 Book a Call</a>
 </div>
 
@@ -2070,6 +2445,9 @@ footer{
       <div class="hero-ctas">
         <button class="btn-primary" onclick="showPage('book')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Book a Free Strategy Call</button>
         <button class="btn-ghost" onclick="showPage('services')">View Services →</button>
+        <button class="btn-blog" onclick="showPage('blog')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Read Our Blog
+        </button>
       </div>
 
 
@@ -2122,7 +2500,7 @@ footer{
             <div class="card-desc">Strategy-first social presence that builds authority and engagement across platforms.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Social Media Marketing</div>
@@ -2147,7 +2525,7 @@ footer{
             <div class="card-desc">Data-driven ad systems for consistent, quality leads.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay" style="background:linear-gradient(0deg,rgba(5,5,13,.95) 0%,rgba(5,5,13,.5) 50%,rgba(255,95,109,.15) 100%)"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Paid Ads & Lead Generation</div>
@@ -2368,6 +2746,53 @@ footer{
     </div>
   </section>
 
+
+  <!-- Latest from Blog (Home Preview) -->
+  <section class="home-blog-preview">
+    <div class="section-tag">Knowledge Hub</div>
+    <h2>Latest from Our Blog</h2>
+    <p class="section-desc">Practical marketing insights, growth strategies, and expert guides — straight from our team.</p>
+    <div class="home-blog-grid">
+
+      <div class="home-blog-card sa sa-pop sd-1">
+        <div class="home-blog-img" style="background-image:url('https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?w=500&q=80&fit=crop')"></div>
+        <div class="home-blog-body">
+          <span class="home-blog-tag">SEO</span>
+          <h3 class="home-blog-title">The Complete Local SEO Guide for Small Businesses in 2025</h3>
+          <p class="home-blog-excerpt">Dominate local search results with proven tactics that drive foot traffic and online leads.</p>
+          <button class="home-blog-read" onclick="showPage('blog')">Read Article →</button>
+        </div>
+      </div>
+
+      <div class="home-blog-card sa sa-pop sd-2">
+        <div class="home-blog-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&q=80&fit=crop')"></div>
+        <div class="home-blog-body">
+          <span class="home-blog-tag">Social Media</span>
+          <h3 class="home-blog-title">How to Build a 10,000 Follower Instagram Account From Zero in 90 Days</h3>
+          <p class="home-blog-excerpt">The exact content system used to grow brand accounts without spending a rupee on ads.</p>
+          <button class="home-blog-read" onclick="showPage('blog')">Read Article →</button>
+        </div>
+      </div>
+
+      <div class="home-blog-card sa sa-pop sd-3">
+        <div class="home-blog-img" style="background-image:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&q=80&fit=crop')"></div>
+        <div class="home-blog-body">
+          <span class="home-blog-tag">Paid Ads</span>
+          <h3 class="home-blog-title">Why Your Meta Ads Are Failing (And How to Fix Them)</h3>
+          <p class="home-blog-excerpt">The 7 most common Meta Ads mistakes — and the exact fixes that cut cost-per-lead by 60%.</p>
+          <button class="home-blog-read" onclick="showPage('blog')">Read Article →</button>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <button class="btn-blog-all" onclick="showPage('blog')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:7px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        View All Articles
+      </button>
+    </div>
+  </section>
+
   <!-- Testimonials Slider (Home) -->
   <section>
     <div class="section-tag">What Clients Say</div>
@@ -2462,7 +2887,7 @@ footer{
             <div class="card-desc">Build authority, consistency, and brand trust across all platforms.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay" style="background:linear-gradient(0deg,rgba(5,5,13,.97) 0%,rgba(5,5,13,.6) 55%,rgba(124,92,252,.6) 100%)"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Social Media Marketing & Management</div>
@@ -2481,7 +2906,7 @@ footer{
             <div class="card-desc">Strategic content systems that attract and convert.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay" style="background:linear-gradient(0deg,rgba(5,5,13,.97) 0%,rgba(5,5,13,.6) 55%,rgba(0,217,192,.5) 100%)"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Content Strategy & Planning</div>
@@ -2557,7 +2982,7 @@ footer{
             <div class="card-desc">Predictable leads using data-driven advertising systems.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay" style="background:linear-gradient(0deg,rgba(5,5,13,.97) 0%,rgba(5,5,13,.6) 55%,rgba(255,95,109,.5) 100%)"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Paid Ads & Lead Generation</div>
@@ -2747,7 +3172,7 @@ footer{
             <div class="card-desc">Data-driven decisions for scalable growth.</div>
           </div>
           <div class="service-card-back">
-            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop')"></div>
+            <div class="service-card-back-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&fit=crop')"></div>
             <div class="service-card-back-overlay" style="background:linear-gradient(0deg,rgba(5,5,13,.97) 0%,rgba(5,5,13,.6) 55%,rgba(124,92,252,.5) 100%)"></div>
             <div class="service-card-back-content">
               <div class="service-card-back-title">Analytics & Reporting</div>
@@ -2836,7 +3261,7 @@ footer{
     <h1 style="font-family:var(--font-head);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:1rem">Paid Ads &<br><span class="grad">Lead Generation</span></h1>
     <p class="section-desc">Predictable leads using data-driven advertising systems. We design complete ad systems — ads, funnels, tracking, and optimization.</p>
     <div style="position:relative;border-radius:20px;overflow:hidden;margin:2.5rem 0;border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 80px rgba(0,0,0,.4);">
-      <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1200&q=80&auto=format&fit=crop" 
+      <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&q=80&auto=format&fit=crop" 
            alt="Paid ads and lead generation" 
            style="width:100%;height:320px;object-fit:cover;display:block;" loading="lazy" decoding="async"/>
       <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,95,109,.45),rgba(5,5,13,.3));display:flex;align-items:flex-end;padding:2rem;">
@@ -3139,7 +3564,7 @@ footer{
 
       <div class="testi-card sa sa-pop sd-2">
         <div class="testi-card-top">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face" alt="Arjun Mehta" class="testi-photo"/>
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop&crop=face" alt="Arjun Mehta" class="testi-photo"/>
           <div>
             <div class="testi-name">Arjun Mehta</div>
             <div class="testi-role">Founder, CloudStack SaaS</div>
@@ -3494,6 +3919,570 @@ footer{
 <!-- ═══════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════ -->
+<div class="page" id="page-blog">
+
+  <!-- Blog Hero -->
+  <div style="position:relative;padding:6rem 5vw 3rem;overflow:hidden;border-bottom:1px solid rgba(124,92,252,.12);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(124,92,252,.12),transparent 65%);pointer-events:none"></div>
+    <div style="position:relative;z-index:1">
+      <div class="section-tag" style="margin-bottom:1.25rem">📝 Latest Insights</div>
+      <h1 style="font-family:var(--font-head);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;margin-bottom:.75rem;line-height:1.05">
+        Orbit Edge Media <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Blog</span>
+      </h1>
+      <p style="color:var(--muted);font-size:1rem;max-width:520px;line-height:1.7;margin-bottom:2rem">Real strategies, honest insights, and practical advice on digital marketing, paid ads, SEO and business growth.</p>
+      <!-- Tabs -->
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap" id="blog-tabs">
+        <button class="blog-tab active" onclick="filterBlog('all',this)">All Posts</button>
+        <button class="blog-tab" onclick="filterBlog('marketing',this)">📈 Marketing</button>
+        <button class="blog-tab" onclick="filterBlog('seo',this)">🔍 SEO</button>
+        <button class="blog-tab" onclick="filterBlog('ads',this)">📣 Paid Ads</button>
+        <button class="blog-tab" onclick="filterBlog('social',this)">📱 Social Media</button>
+        <button class="blog-tab" onclick="filterBlog('growth',this)">🚀 Growth</button>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:3rem 5vw 5rem">
+
+    <!-- Featured Post -->
+    <div class="blog-featured" id="blog-featured">
+      <div class="blog-feat-img">
+        <div class="blog-feat-img-bg" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&auto=format&fit=crop');position:absolute;inset:0;background-size:cover;background-position:center;"></div>
+        <span class="blog-feat-badge">⭐ Featured</span>
+        <span class="blog-feat-read-time">⏱ 8 min read</span>
+      </div>
+      <div class="blog-feat-body">
+        <div class="blog-meta-row">
+          <span class="blog-cat marketing">📈 Marketing</span>
+          <span class="blog-date">May 2025</span>
+        </div>
+        <h2 class="blog-feat-title">10 Digital Marketing Strategies That Actually Work in 2025</h2>
+        <p class="blog-feat-desc">The marketing landscape has shifted dramatically. Here are the 10 proven strategies our agency uses to generate consistent leads for clients — including the ones most agencies are not talking about yet.</p>
+        <div class="blog-tags-row">
+          <span class="blog-tag">Lead Generation</span>
+          <span class="blog-tag">Paid Ads</span>
+          <span class="blog-tag">ROI</span>
+        </div>
+        <button class="blog-read-btn" onclick="openBlogPost('featured')">Read Full Article</button>
+      </div>
+    </div>
+
+    <!-- Recent Articles -->
+    <div class="blog-section-head">
+      <h3>Recent Articles</h3>
+      <div class="blog-section-line"></div>
+    </div>
+
+    <div class="blog-grid" id="blog-grid">
+
+      <div class="blog-card" data-cat="seo">
+        <div class="blog-card-img blog-img-seo">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">🔍</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat seo">🔍 SEO</span><span class="blog-date">Apr 2025</span><span class="blog-read">6 min</span></div>
+          <h3 class="blog-card-title">The Complete Local SEO Guide for Small Businesses in 2025</h3>
+          <p class="blog-card-desc">Rank on Google Maps and dominate local search results with step-by-step tactics that work for any local business.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Local SEO</span><span class="blog-tag">Google Maps</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('seo-local')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="ads">
+        <div class="blog-card-img blog-img-ads">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">📣</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat ads">📣 Paid Ads</span><span class="blog-date">Apr 2025</span><span class="blog-read">5 min</span></div>
+          <h3 class="blog-card-title">Why Your Meta Ads Are Failing (And How to Fix Them)</h3>
+          <p class="blog-card-desc">Most businesses waste thousands on Facebook and Instagram ads. We break down the 7 most common mistakes and the exact fixes.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Meta Ads</span><span class="blog-tag">Facebook</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('meta-ads')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="social">
+        <div class="blog-card-img blog-img-social">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">📱</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat social">📱 Social Media</span><span class="blog-date">Mar 2025</span><span class="blog-read">4 min</span></div>
+          <h3 class="blog-card-title">How to Build a 10,000 Follower Instagram Account From Zero in 90 Days</h3>
+          <p class="blog-card-desc">The exact content system we used to grow multiple brand accounts to 10K+ followers without spending a single rupee on ads.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Instagram</span><span class="blog-tag">Organic Growth</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('instagram')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="growth">
+        <div class="blog-card-img blog-img-growth">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1543286386-713bdd548da4?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">🚀</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat growth">🚀 Growth</span><span class="blog-date">Mar 2025</span><span class="blog-read">7 min</span></div>
+          <h3 class="blog-card-title">The Sales Funnel Blueprint That Generated ₹50L for Our Client in 60 Days</h3>
+          <p class="blog-card-desc">We reveal the exact funnel structure, ad copy, and landing page formula behind one of our most successful campaigns.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Sales Funnel</span><span class="blog-tag">Case Study</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('funnel-case')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="seo">
+        <div class="blog-card-img blog-img-seo">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">🔍</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat seo">🔍 SEO</span><span class="blog-date">Feb 2025</span><span class="blog-read">5 min</span></div>
+          <h3 class="blog-card-title">Content Marketing in 2025: What Still Works and What's Dead</h3>
+          <p class="blog-card-desc">Long-form blogs, YouTube shorts, AI content — what is still driving traffic and what has Google's latest update killed?</p>
+          <div class="blog-tags-row"><span class="blog-tag">Content</span><span class="blog-tag">Google</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('content-2025')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="marketing">
+        <div class="blog-card-img blog-img-marketing">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">📈</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat marketing">📈 Marketing</span><span class="blog-date">Feb 2025</span><span class="blog-read">6 min</span></div>
+          <h3 class="blog-card-title">Email Marketing Is Not Dead: How We Get 42% Open Rates</h3>
+          <p class="blog-card-desc">While everyone chases social media, email quietly delivers the highest ROI. Here is the exact system and subject line formula we use.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Email</span><span class="blog-tag">Automation</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('email-marketing')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="ads">
+        <div class="blog-card-img blog-img-ads">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">📣</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat ads">📣 Paid Ads</span><span class="blog-date">Jan 2025</span><span class="blog-read">5 min</span></div>
+          <h3 class="blog-card-title">Google Ads vs Meta Ads: Which One Should You Choose in 2025?</h3>
+          <p class="blog-card-desc">The answer depends entirely on your business type, budget, and goals. We break down exactly when to use each platform.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Google Ads</span><span class="blog-tag">Comparison</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('google-vs-meta')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="social">
+        <div class="blog-card-img blog-img-social">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">📱</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat social">📱 Social Media</span><span class="blog-date">Jan 2025</span><span class="blog-read">4 min</span></div>
+          <h3 class="blog-card-title">LinkedIn for B2B: The Underrated Channel That Closes High-Ticket Deals</h3>
+          <p class="blog-card-desc">LinkedIn organic reach is still phenomenal for B2B. Here is the posting strategy and connection outreach system we use.</p>
+          <div class="blog-tags-row"><span class="blog-tag">LinkedIn</span><span class="blog-tag">B2B</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('linkedin-b2b')">Read More →</button>
+        </div>
+      </div>
+
+      <div class="blog-card" data-cat="growth">
+        <div class="blog-card-img blog-img-growth">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">🚀</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat growth">🚀 Growth</span><span class="blog-date">Dec 2024</span><span class="blog-read">6 min</span></div>
+          <h3 class="blog-card-title">Personal Branding for Founders: Why Your Face Is Your Best Marketing Asset</h3>
+          <p class="blog-card-desc">In 2025, people buy from people. Founders who build their personal brand see 3x better conversion rates.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Personal Brand</span><span class="blog-tag">Founders</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('personal-brand')">Read More →</button>
+        </div>
+      </div>
+
+
+      <!-- Orbit Edge Media About Article -->
+      <div class="blog-card" data-cat="marketing" style="border:1.5px solid rgba(124,92,252,.3);position:relative;">
+        <div style="position:absolute;top:12px;right:12px;z-index:2;background:linear-gradient(135deg,#7c5cfc,#00d9c0);color:#fff;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.05em;">FEATURED</div>
+        <div class="blog-card-img blog-img-marketing">
+          <div class="blog-card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&fit=crop')"></div>
+          <div class="blog-card-img-overlay"></div>
+          <div class="blog-card-cat-icon">🚀</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta-row"><span class="blog-cat marketing">🚀 About Us</span><span class="blog-date">May 2025</span><span class="blog-read">7 min</span></div>
+          <h3 class="blog-card-title">Orbit Edge Media: The Full-Stack Growth Agency Redefining Digital Marketing in India</h3>
+          <p class="blog-card-desc">From SEO and paid ads to AI automation — discover how we build complete growth systems for modern businesses and why 50+ clients trust us.</p>
+          <div class="blog-tags-row"><span class="blog-tag">Our Story</span><span class="blog-tag">Growth Systems</span><span class="blog-tag">Results</span></div>
+          <button class="blog-read-btn-sm" onclick="openBlogPost('about-orbit')">Read More →</button>
+        </div>
+      </div>
+
+        </div><!-- /blog-grid -->
+
+    <!-- Newsletter CTA -->
+    <div class="blog-newsletter">
+      <span class="blog-newsletter-icon">📬</span>
+      <h3>Get Weekly Growth Tips</h3>
+      <p>Join 2,400+ founders and marketers who get our best strategies every Tuesday. No spam. Unsubscribe anytime.</p>
+      <div class="blog-nl-form">
+        <input id="blog-email-input" type="email" placeholder="your@email.com" class="blog-nl-input"/>
+        <button onclick="subscribeNewsletter()" class="blog-nl-btn">Subscribe Free →</button>
+      </div>
+      <div id="blog-sub-msg" style="margin-top:.85rem;font-size:.78rem;color:var(--muted);min-height:1.2rem"></div>
+    </div>
+
+  </section>
+</div>
+
+<!-- BLOG POST MODAL -->
+<div id="blog-modal" class="blog-modal-wrap">
+  <div class="blog-modal-box">
+    <button onclick="closeBlogModal()" class="blog-modal-close">✕</button>
+    <div id="blog-modal-content"></div>
+    <div class="blog-modal-cta">
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">Ready to implement these strategies for your business?</p>
+      <button class="btn-primary" onclick="closeBlogModal();showPage('book')">Book a Free Strategy Call →</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ═══════════════════════════════════════
+   BLOG PAGE — PREMIUM MAGAZINE REDESIGN
+═══════════════════════════════════════ */
+
+/* ── Filter Tabs ── */
+.blog-tab{
+  padding:.45rem 1.2rem;border-radius:99px;
+  border:1px solid rgba(124,92,252,.2);
+  background:rgba(124,92,252,.04);
+  color:var(--muted);font-family:var(--font-body);
+  font-size:.75rem;font-weight:600;cursor:pointer;
+  transition:all .25s;letter-spacing:.04em;
+}
+.blog-tab:hover{border-color:var(--accent);color:var(--accent);background:rgba(124,92,252,.08);transform:translateY(-1px)}
+.blog-tab.active{
+  background:linear-gradient(135deg,var(--accent),#5b3ee8);
+  border-color:transparent;color:#fff;font-weight:700;
+  box-shadow:0 4px 16px rgba(124,92,252,.35);
+}
+
+/* ── Featured Card ── */
+.blog-featured{
+  display:grid;grid-template-columns:1.1fr 1fr;
+  border-radius:24px;overflow:hidden;
+  border:1px solid rgba(124,92,252,.2);
+  background:rgba(255,255,255,.02);
+  box-shadow:0 8px 48px rgba(124,92,252,.1);
+  transition:all .35s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.blog-featured::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,92,252,.04),transparent);
+  pointer-events:none;z-index:0;
+}
+.blog-featured:hover{
+  border-color:rgba(124,92,252,.4);
+  box-shadow:0 20px 70px rgba(124,92,252,.18);
+  transform:translateY(-4px);
+}
+@media(max-width:768px){.blog-featured{grid-template-columns:1fr}}
+
+.blog-feat-img{
+  position:relative;min-height:320px;overflow:hidden;
+}
+.blog-feat-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+  filter:brightness(.9);
+}
+.blog-featured:hover .blog-feat-img img{transform:scale(1.05);filter:brightness(.95)}
+.blog-feat-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,92,252,.3),rgba(0,0,0,.2));
+}
+.blog-feat-badge{
+  position:absolute;top:1.2rem;left:1.2rem;z-index:2;
+  background:linear-gradient(135deg,var(--accent),#5b3ee8);
+  color:#fff;font-size:.62rem;font-weight:800;
+  padding:.3rem .85rem;border-radius:99px;
+  letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:0 4px 16px rgba(124,92,252,.4);
+}
+.blog-feat-read-time{
+  position:absolute;bottom:1.2rem;right:1.2rem;z-index:2;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(8px);
+  color:#fff;font-size:.65rem;font-weight:600;
+  padding:.28rem .75rem;border-radius:99px;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.blog-feat-body{
+  padding:2.5rem;display:flex;flex-direction:column;
+  justify-content:center;gap:1rem;position:relative;z-index:1;
+}
+@media(max-width:768px){.blog-feat-body{padding:1.75rem}}
+
+.blog-meta-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.blog-cat{
+  font-size:.62rem;font-weight:800;padding:.25rem .75rem;
+  border-radius:99px;letter-spacing:.08em;text-transform:uppercase;
+}
+.blog-cat.marketing{background:rgba(124,92,252,.12);color:#a78bfa;border:1px solid rgba(124,92,252,.2)}
+.blog-cat.seo{background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.2)}
+.blog-cat.ads{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.blog-cat.social{background:rgba(236,72,153,.12);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
+.blog-cat.growth{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.blog-date,.blog-read{font-size:.7rem;color:var(--muted)}
+.blog-date::before{content:'·';margin-right:.4rem;color:rgba(124,92,252,.4)}
+
+.blog-feat-title{
+  font-family:var(--font-head);font-size:clamp(1.2rem,2.5vw,1.65rem);
+  font-weight:800;line-height:1.25;color:var(--text);
+  transition:color .2s;
+}
+.blog-featured:hover .blog-feat-title{color:rgba(232,232,240,.9)}
+.blog-feat-desc{color:var(--muted);font-size:.88rem;line-height:1.75;flex:1}
+
+.blog-tags-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.blog-tag{
+  font-size:.62rem;padding:.2rem .65rem;border-radius:6px;
+  border:1px solid rgba(124,92,252,.15);
+  color:rgba(232,232,240,.45);
+  transition:all .2s;
+}
+.blog-featured:hover .blog-tag,.blog-card:hover .blog-tag{
+  border-color:rgba(124,92,252,.3);color:rgba(232,232,240,.7);
+}
+
+.blog-read-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--accent),#5b3ee8);
+  color:#fff;border:none;padding:.72rem 1.75rem;
+  border-radius:10px;font-weight:700;font-size:.85rem;
+  cursor:pointer;transition:all .3s;
+  box-shadow:0 4px 20px rgba(124,92,252,.35);
+  width:fit-content;
+}
+.blog-read-btn:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(124,92,252,.5)}
+.blog-read-btn::after{content:'→';transition:transform .2s}
+.blog-read-btn:hover::after{transform:translateX(4px)}
+
+/* ── Blog Grid ── */
+.blog-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+@media(max-width:960px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.blog-grid{grid-template-columns:1fr}}
+
+/* ── Blog Card ── */
+.blog-card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(124,92,252,.12);
+  border-radius:20px;overflow:hidden;
+  transition:all .35s cubic-bezier(.22,1,.36,1);
+  display:flex;flex-direction:column;
+  position:relative;
+}
+.blog-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.blog-card:hover{
+  border-color:rgba(124,92,252,.35);
+  transform:translateY(-8px);
+  box-shadow:0 20px 60px rgba(124,92,252,.14);
+}
+.blog-card:hover::after{transform:scaleX(1)}
+
+.blog-card-img{
+  height:210px;overflow:hidden;position:relative;
+  background:#0e0e1a;
+}
+.blog-card-img-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform .55s cubic-bezier(.22,1,.36,1),filter .3s;
+  filter:brightness(.8) saturate(1.15);
+}
+.blog-card:hover .blog-card-img-bg{
+  transform:scale(1.09);
+  filter:brightness(.9) saturate(1.25);
+}
+.blog-card-img-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,transparent 30%,rgba(5,5,13,.88) 100%);
+}
+.blog-card-cat-icon{
+  position:absolute;top:.85rem;right:.85rem;z-index:2;
+  width:34px;height:34px;border-radius:9px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;
+}
+/* Fallback gradients per category */
+.blog-img-seo{background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)}
+.blog-img-ads{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)}
+.blog-img-social{background:linear-gradient(135deg,#2d1b69 0%,#11998e 60%,#1a1a2e 100%)}
+.blog-img-growth{background:linear-gradient(135deg,#1a0a2e 0%,#6f0000 60%,#1a0a0a 100%)}
+.blog-img-marketing{background:linear-gradient(135deg,#141e30 0%,#243b55 100%)}
+
+/* Featured img same */
+.blog-feat-img-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform .6s cubic-bezier(.22,1,.36,1),filter .3s;
+  filter:brightness(.78) saturate(1.1);
+}
+.blog-featured:hover .blog-feat-img-bg{transform:scale(1.05);filter:brightness(.88)}
+
+.blog-card-body{
+  padding:1.45rem;flex:1;display:flex;flex-direction:column;gap:.6rem;
+  position:relative;
+}
+.blog-card-title{
+  font-family:var(--font-head);font-size:.97rem;font-weight:800;
+  line-height:1.3;color:var(--text);transition:color .2s;
+}
+.blog-card:hover .blog-card-title{color:#fff}
+.blog-card-desc{color:var(--muted);font-size:.79rem;line-height:1.65;flex:1}
+
+.blog-read-btn-sm{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:rgba(124,92,252,.1);
+  color:var(--accent);border:1px solid rgba(124,92,252,.25);
+  padding:.45rem 1.1rem;border-radius:8px;
+  font-size:.75rem;font-weight:700;cursor:pointer;
+  transition:all .25s;width:fit-content;margin-top:.3rem;
+  font-family:var(--font-body);letter-spacing:.02em;
+}
+.blog-read-btn-sm:hover{
+  background:rgba(124,92,252,.2);border-color:rgba(124,92,252,.5);
+  transform:translateX(5px);box-shadow:0 4px 16px rgba(124,92,252,.2);
+}
+
+.blog-meta-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.blog-date,.blog-read{font-size:.7rem;color:var(--muted)}
+.blog-date::before,.blog-read::before{content:'·';margin-right:.25rem;color:rgba(124,92,252,.4)}
+  font-size:.74rem;font-weight:700;cursor:pointer;
+  transition:all .25s;width:fit-content;margin-top:.25rem;
+  font-family:var(--font-body);
+}
+.blog-read-btn-sm:hover{
+  background:rgba(124,92,252,.18);
+  border-color:rgba(124,92,252,.4);
+  transform:translateX(3px);
+}
+
+/* ── Section divider ── */
+.blog-section-head{
+  display:flex;align-items:center;gap:1rem;
+  margin:3rem 0 1.75rem;
+}
+.blog-section-head h3{
+  font-family:var(--font-head);font-size:1.25rem;font-weight:800;
+  color:var(--text);white-space:nowrap;
+}
+.blog-section-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(124,92,252,.3),transparent);
+}
+
+/* ── Newsletter ── */
+.blog-newsletter{
+  margin-top:4rem;
+  background:linear-gradient(135deg,rgba(124,92,252,.1),rgba(0,217,192,.05));
+  border:1px solid rgba(124,92,252,.2);
+  border-radius:24px;padding:3.5rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.blog-newsletter::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,252,.12),transparent 70%);
+  pointer-events:none;
+}
+.blog-newsletter-icon{
+  font-size:2.5rem;margin-bottom:.75rem;
+  display:block;animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.blog-newsletter h3{
+  font-family:var(--font-head);font-size:1.6rem;font-weight:800;margin-bottom:.5rem;
+}
+.blog-newsletter p{color:var(--muted);font-size:.9rem;margin-bottom:1.75rem;max-width:420px;margin-left:auto;margin-right:auto}
+.blog-nl-form{display:flex;gap:.75rem;max-width:440px;margin:0 auto;flex-wrap:wrap}
+.blog-nl-input{
+  flex:1;min-width:180px;padding:.8rem 1.1rem;
+  border-radius:10px;border:1.5px solid rgba(124,92,252,.25);
+  background:rgba(255,255,255,.04);color:var(--text);
+  font-family:var(--font-body);font-size:.88rem;outline:none;
+  transition:border-color .2s;
+}
+.blog-nl-input:focus{border-color:var(--accent)}
+.blog-nl-btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;border:none;padding:.8rem 1.75rem;
+  border-radius:10px;font-weight:700;font-size:.88rem;
+  cursor:pointer;white-space:nowrap;transition:all .3s;
+  box-shadow:0 4px 20px rgba(124,92,252,.35);
+}
+.blog-nl-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(124,92,252,.5)}
+
+/* ── Blog Modal ── */
+.blog-modal-wrap{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(12px);
+  overflow-y:auto;padding:2rem 1rem;
+  align-items:flex-start;justify-content:center;
+}
+.blog-modal-wrap.open{display:flex}
+.blog-modal-box{
+  max-width:740px;width:100%;
+  background:var(--surface);
+  border:1px solid rgba(124,92,252,.2);
+  border-radius:24px;padding:0;
+  position:relative;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+  margin:auto;
+}
+.blog-modal-close{
+  position:absolute;top:1.2rem;right:1.2rem;z-index:10;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:var(--muted);width:38px;height:38px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;backdrop-filter:blur(8px);
+}
+.blog-modal-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.blog-modal-img{width:100%;height:240px;object-fit:cover;display:block;filter:brightness(.8)}
+.blog-modal-body{padding:2.5rem}
+.blog-modal-cta{
+  margin-top:2rem;padding-top:2rem;
+  border-top:1px solid rgba(124,92,252,.15);
+  text-align:center;
+}
+
+.blog-hidden{display:none !important}
+</style>
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -3701,7 +4690,7 @@ footer{
 
 // ─── PAGE NAVIGATION WITH HISTORY + BACK BUTTON ───
 const pageLabels = {
-  home:'Home', about:'About Us', services:'Services',
+  home:'Home', about:'About Us', services:'Services', blog:'Blog',
   how:'How We Work', cases:'Case Studies', testimonials:'Testimonials',
   pricing:'Pricing', book:'Book a Call', seo:'SEO & Google',
   ads:'Paid Ads', social:'Social Media', web:'Website Dev',
@@ -3913,6 +4902,12 @@ function _renderPage(id){
     breadcrumbBar.style.animation = '';
     bcLabel.textContent = pageLabels[id] || id;
     document.body.classList.add('has-breadcrumb');
+  }
+
+  // ── Footer visibility: show on all pages ──
+  const siteFooter = document.querySelector('footer');
+  if(siteFooter){
+    siteFooter.style.display = '';
   }
 
   // Close mobile menu
@@ -4448,6 +5443,78 @@ window.showPage = function(id){
   }, 80);
 };
 </script>
+
+<script>
+/* ─── Blog filter ─── */
+function filterBlog(cat, btn){
+  document.querySelectorAll('.blog-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.blog-card').forEach(function(c){
+    if(cat==='all'||c.dataset.cat===cat){c.classList.remove('blog-hidden');}
+    else{c.classList.add('blog-hidden');}
+  });
+  // featured only show on 'all' or 'marketing'
+  var feat=document.getElementById('blog-featured');
+  if(feat) feat.style.display=(cat==='all'||cat==='marketing')?'':'none';
+}
+
+/* ─── Newsletter subscribe ─── */
+function subscribeNewsletter(){
+  var email=document.getElementById('blog-email-input').value.trim();
+  var msg=document.getElementById('blog-sub-msg');
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    msg.style.color='#f87171';
+    msg.textContent='Please enter a valid email address.';
+    return;
+  }
+  msg.style.color='#34d399';
+  msg.textContent='🎉 You are in! Check your inbox for a welcome email.';
+  document.getElementById('blog-email-input').value='';
+}
+
+/* ─── Blog post modal ─── */
+var blogPosts={
+
+  'about-orbit':{title:'Orbit Edge Media: The Full-Stack Growth Agency Redefining Digital Marketing in India',cat:'🚀 About Us',date:'May 2025',read:'7 min read',content:'<div style=\"margin-bottom:1.5rem;\"><img src=\"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80&fit=crop\" alt=\"Orbit Edge Media Team\" style=\"width:100%;border-radius:14px;margin-bottom:1.5rem;\"/><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;font-size:1.02rem;\">In a world flooded with agencies that promise the moon and deliver mediocre social media posts, <strong style=\"color:#fff;\">Orbit Edge Media</strong> was built with one clear belief: <em style=\"color:var(--accent);\">marketing without systems is just noise.</em></p><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">Who We Are</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">Orbit Edge Media is a <strong style=\"color:#fff;\">full-stack digital growth agency</strong> powered by <strong style=\"color:var(--accent);\">FORTIFIEDBYTES</strong> — combining marketing expertise with deep technology and automation capabilities. We are not a typical social media agency. We are a growth engineering team that builds <em>predictable, scalable systems</em> for businesses that want real results.</p><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">Based in India and working with clients across e-commerce, real estate, healthcare, SaaS, and B2B services, we have helped <strong style=\"color:#fff;\">50+ businesses</strong> transform their marketing from random activity into a structured growth machine.</p><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">What We Do — And Why It Is Different</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1rem;\">Most agencies pick one lane — SEO, or ads, or social media. We operate across the entire growth stack because we understand that modern businesses need all of these working <em>together</em>, not in silos.</p><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0;\"><div style=\"background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.25);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">📱</div><strong style=\"color:#fff;font-size:.95rem;\">Social Media Marketing</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">Strategy-first content that builds authority, not just followers. We manage Facebook, Instagram, LinkedIn, and more with data-driven calendars and growth campaigns.</p></div><div style=\"background:rgba(0,217,192,.07);border:1px solid rgba(0,217,192,.2);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">🎯</div><strong style=\"color:#fff;font-size:.95rem;\">Paid Ads & Lead Generation</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">Meta, Google, and YouTube ads engineered for real ROI. We have reduced cost-per-lead by up to 60% for clients through creative testing and funnel architecture.</p></div><div style=\"background:rgba(0,217,192,.07);border:1px solid rgba(0,217,192,.2);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">🔍</div><strong style=\"color:#fff;font-size:.95rem;\">SEO & Content Marketing</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">We have grown client organic traffic by 220%+ in 6 months through technical SEO, long-form content, and authoritative link building strategies.</p></div><div style=\"background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.25);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">🤖</div><strong style=\"color:#fff;font-size:.95rem;\">AI Automation & Chatbots</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">Our AI systems handle 80% of customer queries, qualify leads automatically, and trigger personalised follow-up sequences — 24 hours a day, without human effort.</p></div><div style=\"background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.25);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">💻</div><strong style=\"color:#fff;font-size:.95rem;\">Website & Landing Page Development</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">Conversion-first websites built for speed, mobile performance, and measurable results. Every pixel is designed with one goal: turning visitors into customers.</p></div><div style=\"background:rgba(0,217,192,.07);border:1px solid rgba(0,217,192,.2);border-radius:12px;padding:1rem;\"><div style=\"font-size:1.4rem;margin-bottom:.4rem;\">🎨</div><strong style=\"color:#fff;font-size:.95rem;\">Branding & Visual Identity</strong><p style=\"color:var(--muted);font-size:.85rem;margin-top:.4rem;line-height:1.6;\">A brand is more than a logo. We build complete brand systems — messaging, visual language, tone of voice — that make businesses instantly recognisable and trustworthy.</p></div></div><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">Our Philosophy: Systems Over Tactics</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">The biggest mistake we see businesses make is chasing tactics — a viral reel, a one-off ad campaign, a seasonal discount — without a foundation. Tactics can create a spike. <strong style=\"color:#fff;\">Systems create compounding growth.</strong></p><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">Every engagement at Orbit Edge Media begins with a deep audit of your current marketing infrastructure. We map your customer journey, identify the biggest leaks, and build a connected system where every channel feeds the next — social media builds awareness, SEO drives intent traffic, ads convert prospects, automation nurtures leads, and data guides every decision.</p><blockquote style=\"border-left:3px solid var(--accent);padding:1rem 1.25rem;background:rgba(124,92,252,.08);border-radius:0 12px 12px 0;margin:1.5rem 0;\"><p style=\"color:#c4b5fd;font-style:italic;line-height:1.8;margin:0;\">\"We do not just run campaigns. We build the machine that makes marketing work continuously — so our clients can focus on what they do best: running their business.\"</p><footer style=\"color:var(--muted);font-size:.85rem;margin-top:.5rem;\">— Orbit Edge Media Team</footer></blockquote><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">Real Results. Real Numbers.</h3><div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.2rem 0 1.8rem;\"><div style=\"text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem .75rem;\"><div style=\"font-size:1.8rem;font-weight:800;color:var(--accent);\">50+</div><div style=\"color:var(--muted);font-size:.82rem;margin-top:.3rem;\">Active Clients</div></div><div style=\"text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem .75rem;\"><div style=\"font-size:1.8rem;font-weight:800;color:#00d9c0;\">220%</div><div style=\"color:var(--muted);font-size:.82rem;margin-top:.3rem;\">Avg Traffic Growth</div></div><div style=\"text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem .75rem;\"><div style=\"font-size:1.8rem;font-weight:800;color:#f472b6;\">60%</div><div style=\"color:var(--muted);font-size:.82rem;margin-top:.3rem;\">Lower Cost-Per-Lead</div></div></div><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">Who We Work With</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">We work best with <strong style=\"color:#fff;\">growth-minded founders and marketing teams</strong> who understand that great marketing is an investment, not an expense. Our clients are typically:</p><ul style=\"color:var(--muted);line-height:2.1;padding-left:1.5rem;margin-bottom:1.2rem;\"><li><strong style=\"color:#fff;\">E-commerce brands</strong> looking to scale beyond ₹1L/month in revenue</li><li><strong style=\"color:#fff;\">Real estate developers and agents</strong> who need a consistent pipeline of quality leads</li><li><strong style=\"color:#fff;\">Healthcare and wellness businesses</strong> building trust and visibility online</li><li><strong style=\"color:#fff;\">SaaS and tech startups</strong> needing demand generation and product-led content</li><li><strong style=\"color:#fff;\">Service businesses and consultants</strong> who want to become the go-to authority in their niche</li></ul><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">The Technology Advantage</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">Most marketing agencies outsource their tech. We built ours. Powered by <strong style=\"color:var(--accent);\">FORTIFIEDBYTES</strong>, our proprietary infrastructure includes AI-powered chatbots, automated lead nurturing pipelines, real-time analytics dashboards, and CRM integrations that most agencies cannot offer.</p><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1.2rem;\">This is what makes us genuinely full-stack. When your social media campaign generates a lead, our automation picks it up, qualifies it, sends a personalised message within 60 seconds, and notifies your sales team — all without anyone lifting a finger.</p><h3 style=\"color:#fff;font-size:1.25rem;font-weight:700;margin:1.8rem 0 .7rem;\">Ready to Build Your Growth System?</h3><p style=\"color:var(--muted);line-height:1.9;margin-bottom:1rem;\">If you are tired of marketing that looks busy but produces no measurable results, we would love to show you what a properly connected growth system looks like for your business.</p><p style=\"color:var(--muted);line-height:1.9;\">Book a free 30-minute strategy call with our team. We will audit your current marketing, identify your biggest growth opportunities, and map out a clear plan — with no obligation and no fluff.</p></div>'},
+  'featured':{title:'10 Digital Marketing Strategies That Actually Work in 2025',cat:'📈 Marketing',date:'May 2025',read:'8 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">The marketing landscape has changed more in the last 2 years than in the previous 10. AI tools, changing algorithms, and rising ad costs mean the old playbook no longer works.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">Here are the 10 strategies that are working right now for our clients:</p><ol style=\"color:var(--muted);line-height:2;padding-left:1.5rem;\"><li><strong style=\"color:var(--text);\">Short-form video retargeting</strong> — Capture warm audiences with 15-second ads.</li><li><strong style=\"color:var(--text);\">Hyper-local Google Ads</strong> — Target within 5km radius for service businesses.</li><li><strong style=\"color:var(--text);\">WhatsApp broadcast funnels</strong> — 80%+ open rates vs 20% email.</li><li><strong style=\"color:var(--text);\">UGC-style paid creatives</strong> — Authentic content outperforms polished ads 3:1.</li><li><strong style=\"color:var(--text);\">Voice search optimisation</strong> — 50% of searches are now voice-based.</li><li><strong style=\"color:var(--text);\">LinkedIn thought leadership</strong> — B2B gold mine in 2025.</li><li><strong style=\"color:var(--text);\">AI-personalised email sequences</strong> — Segment and personalise at scale.</li><li><strong style=\"color:var(--text);\">Conversion Rate Optimisation (CRO)</strong> — More leads from existing traffic.</li><li><strong style=\"color:var(--text);\">YouTube pre-roll for brand awareness</strong> — Cheapest CPM of any platform.</li><li><strong style=\"color:var(--text);\">Community-led growth</strong> — WhatsApp/Telegram groups that sell for you.</li></ol>'},
+  'seo-local':{title:'The Complete Local SEO Guide for Small Businesses in 2025',cat:'🔍 SEO',date:'Apr 2025',read:'6 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">If you run a local business — a restaurant, gym, dental clinic, or any service that depends on nearby customers — local SEO is the single highest-ROI marketing activity you can do.</p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;\"><li><strong style=\"color:var(--text);\">Claim and fully optimise your Google Business Profile</strong> — photos, hours, services, posts.</li><li><strong style=\"color:var(--text);\">Get 50+ genuine reviews</strong> — use a follow-up WhatsApp message after every purchase.</li><li><strong style=\"color:var(--text);\">Build local citations</strong> — Justdial, Sulekha, IndiaMART, Yelp, and 20+ more.</li><li><strong style=\"color:var(--text);\">Create location-specific landing pages</strong> — one per area you serve.</li><li><strong style=\"color:var(--text);\">Answer local questions on Quora and Reddit</strong> — builds E-E-A-T fast.</li></ul>'},
+  'meta-ads':{title:'Why Your Meta Ads Are Failing (And How to Fix Them)',cat:'📣 Paid Ads',date:'Apr 2025',read:'5 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">We audit hundreds of Meta ad accounts every year. The same 7 mistakes appear in almost every underperforming account.</p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;\"><li><strong style=\"color:var(--text);\">Targeting too broadly or too narrowly</strong> — Let Meta AI find your buyers.</li><li><strong style=\"color:var(--text);\">Sending traffic to a homepage</strong> — Always use a dedicated landing page.</li><li><strong style=\"color:var(--text);\">Not testing creatives</strong> — Run minimum 4-6 ad variations per campaign.</li><li><strong style=\"color:var(--text);\">Ignoring the hook (first 3 seconds)</strong> — 70% of people skip after 3s.</li><li><strong style=\"color:var(--text);\">No retargeting campaign</strong> — 97% of visitors do not buy on first visit.</li><li><strong style=\"color:var(--text);\">Wrong campaign objective</strong> — Never use Engagement when you want leads.</li><li><strong style=\"color:var(--text);\">Not using Advantage+ placements</strong> — Meta algorithm knows best in 2025.</li></ul>'},
+  'instagram':{title:'Instagram Growth in 2025: What Actually Works Now',cat:'📱 Social Media',date:'Mar 2025',read:'5 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">Instagram algorithm has completely changed. Follower count matters less than ever — saves and shares are the new currency that matters.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">What is working right now:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Reels with strong hooks in the first 2 seconds</strong> — Text overlays perform 40% better than voice-only.</li><li><strong style=\"color:var(--text);\">Carousel posts with actionable tips</strong> — Gets 3x more saves than single images.</li><li><strong style=\"color:var(--text);\">Collaborative posts (Collabs)</strong> — Instantly doubles your reach with zero ad spend.</li><li><strong style=\"color:var(--text);\">Reply to every comment in the first hour</strong> — The algorithm heavily rewards engagement velocity.</li><li><strong style=\"color:var(--text);\">Stories with polls and questions daily</strong> — Keeps followers engaged and boosts profile rank.</li><li><strong style=\"color:var(--text);\">Niche hashtags under 500K posts</strong> — Broad hashtags bury your content instantly.</li></ul><p style=\"color:var(--muted);line-height:1.8;\">Consistency beats virality. 3 quality posts per week outperforms 1 viral post per month for sustainable growth.</p>'},
+  'funnel-case':{title:'How We Generated 340 Leads in 30 Days for a Delhi Restaurant',cat:'🚀 Growth',date:'Mar 2025',read:'7 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">A Delhi restaurant chain was spending Rs 80,000/month on Meta ads and getting barely 40 leads. Here is exactly how we fixed it in one month.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">The Problem:</strong> Ads were driving traffic to the homepage, no retargeting, wrong audience, and zero follow-up system.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">What We Changed:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Built a dedicated landing page</strong> with a Free Starter offer for first-time visitors.</li><li><strong style=\"color:var(--text);\">Switched to Lead Generation objective</strong> — direct form fills inside Meta.</li><li><strong style=\"color:var(--text);\">Created a 3-step WhatsApp follow-up sequence</strong> — automated within 5 minutes of lead capture.</li><li><strong style=\"color:var(--text);\">Added a lookalike audience</strong> based on existing customer phone numbers.</li><li><strong style=\"color:var(--text);\">Ran a retargeting campaign</strong> for website visitors who did not convert.</li></ul><p style=\"color:var(--muted);line-height:1.8;\"><strong style=\"color:var(--text);\">Result:</strong> 340 qualified leads in 30 days. Cost per lead dropped from Rs 2,000 to Rs 235. Same budget, 8x better results.</p>'},
+  'content-2025':{title:'Content Marketing Strategy for 2025: The Complete Playbook',cat:'📈 Marketing',date:'Feb 2025',read:'6 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">Generic content is dead. In 2025, you need a content strategy that builds trust, ranks on Google, and converts readers into buyers.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">The Content Pyramid:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Pillar Content monthly</strong> — Long-form SEO-optimised guides that rank for high-value keywords.</li><li><strong style=\"color:var(--text);\">Supporting Blogs weekly</strong> — Answers specific questions your audience is Googling right now.</li><li><strong style=\"color:var(--text);\">Social Micro-Content daily</strong> — Snippets from pillar content repurposed for Instagram, LinkedIn, X.</li><li><strong style=\"color:var(--text);\">Video bi-weekly</strong> — Short explainers, behind-the-scenes, and case study walkthroughs.</li></ul><p style=\"color:var(--muted);line-height:1.8;\">Create once, distribute everywhere. One pillar piece becomes 20+ pieces of social content. Brands that follow this system see 3x organic traffic growth within 6 months.</p>'},
+  'email-marketing':{title:'Email Marketing Is Not Dead — You Are Just Doing It Wrong',cat:'📈 Marketing',date:'Feb 2025',read:'5 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">Email has an average ROI of Rs 4,200 for every Rs 100 spent. Yet most businesses either do not do it or do it so poorly it feels like spam.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">The 5 emails every business needs:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Welcome email Day 0</strong> — Deliver the lead magnet, set expectations, introduce your brand story.</li><li><strong style=\"color:var(--text);\">Value email Day 2</strong> — Give your single most useful tip. No selling.</li><li><strong style=\"color:var(--text);\">Social proof email Day 4</strong> — One compelling case study or testimonial with results.</li><li><strong style=\"color:var(--text);\">Problem-agitate email Day 6</strong> — Identify the biggest pain point and deepen it.</li><li><strong style=\"color:var(--text);\">Offer email Day 8</strong> — Present your solution with a clear, time-sensitive CTA.</li></ul><p style=\"color:var(--muted);line-height:1.8;\">Subject lines determine 47% of open rates. Never use the word Newsletter in a subject line — open rates drop by 30%.</p>'},
+  'google-vs-meta':{title:'Google Ads vs Meta Ads: Which Should You Choose in 2025?',cat:'📣 Paid Ads',date:'Jan 2025',read:'6 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">The number 1 question we get from new clients: should I run Google Ads or Meta Ads? The honest answer — it depends on where your buyer is in their journey.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">Choose Google Ads when:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li>Your customer is <strong style=\"color:var(--text);\">actively searching</strong> for a solution — plumbers, lawyers, doctors</li><li>You have a <strong style=\"color:var(--text);\">high-ticket service</strong> with clear buying intent keywords</li><li>You want <strong style=\"color:var(--text);\">immediate qualified traffic</strong> with high purchase intent</li></ul><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">Choose Meta Ads when:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li>You need to <strong style=\"color:var(--text);\">create demand</strong> for a product people do not know they need yet</li><li>Your product is <strong style=\"color:var(--text);\">visually driven</strong> — fashion, food, decor, lifestyle</li><li>You want to <strong style=\"color:var(--text);\">build brand awareness</strong> at a lower CPM</li></ul><p style=\"color:var(--muted);line-height:1.8;\"><strong style=\"color:var(--text);\">Best strategy:</strong> Start with Google for intent-based capture, use Meta for retargeting. Together they create a full-funnel system.</p>'},
+  'linkedin-b2b':{title:'LinkedIn B2B Lead Generation: The 2025 Organic Strategy',cat:'📱 Social Media',date:'Jan 2025',read:'5 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">LinkedIn has become the most underrated B2B sales channel in India. If your business sells to other businesses, this platform can generate high-quality leads for free.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">The 3-step LinkedIn organic system:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Optimise your profile as a landing page</strong> — Your headline should say what you do and who you help. Add a clear CTA in the About section.</li><li><strong style=\"color:var(--text);\">Post content that starts conversations</strong> — Controversial opinions, unpopular truths, and what-I-learned posts get 5x more engagement than promotional content.</li><li><strong style=\"color:var(--text);\">Comment strategically</strong> — Leave thoughtful comments on posts by your ideal clients. 10 good comments beats 1 post in terms of profile views.</li></ul><p style=\"color:var(--muted);line-height:1.8;\">Clients using this system consistently book 5-10 qualified sales calls per month with zero ad spend.</p>'},
+  'personal-brand':{title:'Why Your Personal Brand Is Your Most Valuable Business Asset',cat:'🚀 Growth',date:'Dec 2024',read:'4 min read',content:'<p style=\"color:var(--muted);line-height:1.8;margin-bottom:1rem;\">In 2025, people buy from people — not companies. Founders and business owners who invest in their personal brand consistently outperform those who hide behind a logo.</p><p style=\"color:var(--muted);line-height:1.8;margin-bottom:.75rem;\"><strong style=\"color:var(--text);\">What a strong personal brand does:</strong></p><ul style=\"color:var(--muted);line-height:2;padding-left:1.5rem;margin-bottom:1rem;\"><li><strong style=\"color:var(--text);\">Lowers your Customer Acquisition Cost</strong> — Warm leads come to you instead of you chasing cold ones.</li><li><strong style=\"color:var(--text);\">Commands premium pricing</strong> — People pay for trust, expertise, and perceived authority.</li><li><strong style=\"color:var(--text);\">Creates compounding returns</strong> — Content you post today keeps attracting clients 3 years from now.</li><li><strong style=\"color:var(--text);\">Makes partnerships effortless</strong> — Other brands want to collaborate with known names.</li></ul><p style=\"color:var(--muted);line-height:1.8;\">The best time to build your personal brand was 5 years ago. The second best time is today.</p>'}
+};
+function openBlogPost(slug){
+  var post=blogPosts[slug];
+  var catClass = slug==='about-orbit'?'marketing':slug==='seo-local'?'seo':slug==='meta-ads'||slug==='google-vs-meta'?'ads':slug==='instagram'||slug==='linkedin-b2b'?'social':slug==='funnel-case'||slug==='personal-brand'?'growth':'marketing';
+  var html = '';
+  if(!post){
+    html = '<div style="padding:2.5rem"><p style="color:var(--muted);font-size:.95rem;line-height:1.8;">Full article coming soon. Book a call to discuss this topic directly with our team.</p></div>';
+  } else {
+    html = '<div style="padding:2.5rem 2.5rem 0">';
+    html += '<div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem">';
+    html += '<span class="blog-cat '+catClass+'" style="font-size:.62rem;font-weight:700;padding:.3rem .85rem;border-radius:99px;letter-spacing:.08em;text-transform:uppercase;">'+post.cat+'</span>';
+    html += '<span style="color:var(--muted);font-size:.78rem;">'+post.date+'</span>';
+    html += '<span style="color:var(--muted);font-size:.78rem;padding:.2rem .6rem;background:rgba(124,92,252,.08);border-radius:6px;border:1px solid rgba(124,92,252,.15);">⏱ '+post.read+'</span>';
+    html += '</div>';
+    html += '<h2 style="font-family:var(--font-head);font-size:clamp(1.3rem,3vw,1.75rem);font-weight:800;line-height:1.25;color:var(--text);margin-bottom:1.5rem;">'+post.title+'</h2>';
+    html += '<div style="width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin-bottom:1.75rem;"></div>';
+    html += post.content;
+    html += '</div>';
+  }
+  document.getElementById('blog-modal-content').innerHTML = html;
+  document.getElementById('blog-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBlogModal(){
+  document.getElementById('blog-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+
 <script>
 /* ═══════════════════════════
    TESTIMONIAL SLIDER
@@ -4633,6 +5700,216 @@ window.showPage = function(id){
  ]
 }
 </script>
+
+<!-- ═══════════════════════════════════════
+     CUSTOM CURSOR ENGINE
+═══════════════════════════════════════ -->
+<script>
+(function(){
+  const dot   = document.getElementById('cursor-dot');
+  const ring  = document.getElementById('cursor-ring');
+  const trail = document.getElementById('cursor-trail-wrap');
+
+  if(!dot || !ring) return;
+
+  // Hide default on touch devices
+  if(window.matchMedia('(hover:none)').matches){
+    dot.style.display='none';
+    ring.style.display='none';
+    return;
+  }
+
+  // ── Trail canvas setup
+  const tc = trail;
+  tc.width = window.innerWidth;
+  tc.height = window.innerHeight;
+  window.addEventListener('resize',()=>{
+    tc.width=window.innerWidth;
+    tc.height=window.innerHeight;
+  });
+  const tctx = tc.getContext('2d');
+
+  // ── State
+  let mx=0, my=0;      // real mouse
+  let rx=0, ry=0;      // ring (lagged)
+  let history = [];    // comet trail points
+  const TRAIL_LEN = 22;
+
+  // ── Star field cursor trails
+  const sparks = [];
+
+  document.addEventListener('mousemove', e=>{
+    mx = e.clientX;
+    my = e.clientY;
+
+    // Dot follows instantly
+    dot.style.left = mx+'px';
+    dot.style.top  = my+'px';
+
+    // Add trail point
+    history.push({x:mx,y:my,t:Date.now()});
+    if(history.length > TRAIL_LEN) history.shift();
+
+    // Random spark on move
+    if(Math.random()<0.18){
+      sparks.push({
+        x:mx, y:my,
+        vx:(Math.random()-0.5)*3,
+        vy:(Math.random()-0.5)*3 - 1.5,
+        life:1,
+        size:Math.random()*2+0.5,
+        color: Math.random()<0.5
+          ? `rgba(0,217,192,`
+          : `rgba(124,92,252,`
+      });
+    }
+  });
+
+  // ── Detect hover targets
+  document.addEventListener('mouseover', e=>{
+    const t = e.target.closest('a,button,[role=button],.service-card,.btn-primary,.btn-ghost,.nav-cta');
+    const inp = e.target.closest('input,textarea');
+    if(inp){
+      document.body.classList.add('cursor-text');
+      document.body.classList.remove('cursor-hover');
+    } else if(t){
+      document.body.classList.add('cursor-hover');
+      document.body.classList.remove('cursor-text');
+    }
+  });
+  document.addEventListener('mouseout', e=>{
+    const t = e.target.closest('a,button,[role=button],.service-card,.btn-primary,.btn-ghost,.nav-cta,.input,textarea');
+    if(t){
+      document.body.classList.remove('cursor-hover','cursor-text');
+    }
+  });
+
+  // ── Click burst
+  document.addEventListener('mousedown', e=>{
+    document.body.classList.add('cursor-click');
+    spawnBurst(e.clientX, e.clientY);
+  });
+  document.addEventListener('mouseup', ()=>{
+    document.body.classList.remove('cursor-click');
+  });
+
+  function spawnBurst(bx, by){
+    const COUNT = 10;
+    for(let i=0;i<COUNT;i++){
+      const angle = (i/COUNT)*Math.PI*2;
+      const dist  = 18+Math.random()*22;
+      const tx = Math.cos(angle)*dist;
+      const ty = Math.sin(angle)*dist;
+      sparks.push({
+        x:bx, y:by,
+        vx:Math.cos(angle)*(2+Math.random()*3),
+        vy:Math.sin(angle)*(2+Math.random()*3),
+        life:1,
+        size:Math.random()*3+1,
+        color: i%2===0 ? 'rgba(0,217,192,' : 'rgba(255,200,100,',
+        burst:true
+      });
+    }
+  }
+
+  // ── Render loop
+  function render(){
+    requestAnimationFrame(render);
+
+    // Lag ring behind mouse
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx+'px';
+    ring.style.top  = ry+'px';
+
+    // Trail canvas
+    tctx.clearRect(0,0,tc.width,tc.height);
+
+    // Draw comet trail
+    if(history.length > 2){
+      for(let i=1;i<history.length;i++){
+        const p = history[i];
+        const pp= history[i-1];
+        const prog = i/history.length;
+        const age = (Date.now()-p.t)/300;
+        const a = Math.max(0, prog*(1-age)*0.5);
+        const w = prog*3;
+
+        tctx.beginPath();
+        tctx.moveTo(pp.x, pp.y);
+        tctx.lineTo(p.x, p.y);
+        tctx.strokeStyle = `rgba(124,92,252,${a})`;
+        tctx.lineWidth = w;
+        tctx.lineCap='round';
+        tctx.stroke();
+
+        // Teal inner trail
+        tctx.beginPath();
+        tctx.moveTo(pp.x, pp.y);
+        tctx.lineTo(p.x, p.y);
+        tctx.strokeStyle = `rgba(0,217,192,${a*0.6})`;
+        tctx.lineWidth = w*0.4;
+        tctx.stroke();
+      }
+    }
+
+    // Draw sparks
+    for(let i=sparks.length-1;i>=0;i--){
+      const s=sparks[i];
+      s.x  += s.vx;
+      s.y  += s.vy;
+      s.vy += 0.12; // gravity
+      s.vx *= 0.97;
+      s.life -= s.burst ? 0.055 : 0.045;
+
+      if(s.life<=0){ sparks.splice(i,1); continue; }
+
+      tctx.beginPath();
+      tctx.arc(s.x, s.y, s.size*s.life, 0, Math.PI*2);
+      tctx.fillStyle = s.color + (s.life*0.9)+')';
+      tctx.fill();
+
+      // Glow
+      if(s.burst){
+        tctx.beginPath();
+        tctx.arc(s.x, s.y, s.size*s.life*2.5, 0, Math.PI*2);
+        tctx.fillStyle = s.color + (s.life*0.25)+')';
+        tctx.fill();
+      }
+    }
+
+    // Draw star shape around cursor on hover
+    if(document.body.classList.contains('cursor-hover')){
+      const numStars = 6;
+      const time = Date.now()*0.002;
+      for(let i=0;i<numStars;i++){
+        const angle = (i/numStars)*Math.PI*2 + time;
+        const r = 28 + Math.sin(time*2+i)*4;
+        const sx = rx + Math.cos(angle)*r;
+        const sy = ry + Math.sin(angle)*r;
+        tctx.beginPath();
+        tctx.arc(sx,sy,1.2,0,Math.PI*2);
+        tctx.fillStyle='rgba(0,217,192,0.7)';
+        tctx.fill();
+      }
+    }
+  }
+  render();
+})();
+</script>
+
+
+<!-- Nav scroll + active state -->
+<script>
+(function(){
+  const nav = document.querySelector('nav');
+  if(!nav) return;
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  }, {passive:true});
+})();
+</script>
+
 
 </body>
 </html>
