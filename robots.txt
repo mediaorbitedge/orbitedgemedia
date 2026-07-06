@@ -15,6 +15,18 @@ Allow: /*.svg$
 
 Disallow: /*?*
 
-# Sitemap
+# Allow major search engines
+User-agent: Googlebot
+Allow: /
 
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
 Sitemap: https://www.orbitedgemedia.com/sitemap.xml
+
+# Host
+Host: https://www.orbitedgemedia.com
