@@ -3,7 +3,7 @@
  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-<url>
+ <url>
     <loc>https://www.orbitedgemedia.com/</loc>
 
     <image:image>
@@ -25,7 +25,7 @@
 
 </url>
 
- <url>
+<url>
     <loc>https://www.orbitedgemedia.com/</loc>
   
    <image:image>
@@ -34,9 +34,9 @@
         </image:loc>
     </image:image>
 
- </url>
+</url>
 
-  <url>
+<url>
     <loc>https://www.orbitedgemedia.com/</loc>
    
   <image:image>
@@ -44,17 +44,17 @@
         https://www.orbitedgemedia.com/favicon.ico
         </image:loc>
     </image:image>
-
+ 
 </url>
 
- <url>
+<url>
     <loc>https://www.orbitedgemedia.com/</loc>
   
   <image:image>
         <image:loc>
         https://www.orbitedgemedia.com/favicon.png
         </image:loc>
-    </image:image>
+  </image:image>
 
 </url>
 
