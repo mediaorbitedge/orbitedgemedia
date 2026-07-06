@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>https://www.orbitedgemedia.com/page-sitemap.xml</loc>
+        <lastmod>2026-07-06</lastmod>
+    </sitemap>
 
-  <url>
-    <loc>https://www.orbitedgemedia.com</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+    <sitemap>
+        <loc>https://www.orbitedgemedia.com/service-sitemap.xml</loc>
+        <lastmod>2026-07-06</lastmod>
+    </sitemap>
 
-</urlset>
+    <sitemap>
+        <loc>https://www.orbitedgemedia.com/blog-sitemap.xml</loc>
+        <lastmod>2026-07-06</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://www.orbitedgemedia.com/image-sitemap.xml</loc>
+        <lastmod>2026-07-06</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>https://www.orbitedgemedia.com/local-sitemap.xml</loc>
+        <lastmod>2026-07-06</lastmod>
+    </sitemap>
+
+</sitemapindex>
